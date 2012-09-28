@@ -16,7 +16,7 @@
 
 	$lat = '52.228391';
 	$lon = '21.025815';
-	$token = 'AAAAAAITEghMBALZA7rzKtrYKAJMJpSVMEn6s616Q653kFaTNTKxZBFLWsqfmbgaHHggmnZCvnYaIsktG7zeFzbrgDStKLtidS969eAuV2Niz4cAXjJU';
+	$token = 'AAACEdEose0cBANHdoTZBnwxuTcvlbpuGDCdUK1bVdRNsf67PKuTbnyQ5JFkEWTR8mscfZAIvn9DEfZCW5CScMRVlo0ROUjGNSo2kMLN75KT4OjeZAeMg';
 
 function get_location($lat, $lon, $token)
 {
@@ -25,9 +25,14 @@ function get_location($lat, $lon, $token)
 
     $output = get($base . $uri);
     $loc = array();
-    $loc['name'] = $output->data[0]->name;
-    $loc['street'] = str_replace("ul. ", "", $output->data[0]->location->street);
-    $loc['city'] = $output->data[0]->location->city;
+    $loc['street'] = '';
+    $i = 0;
+    while ($loc['street']==''){
+        $loc['name'] = $output->data[$i]->name;
+        $loc['street'] = str_replace("ul. ", "", $output->data[$i]->location->street);
+        $loc['city'] = $output->data[$i]->location->city;
+        $i++;
+    }
     return $loc;
 }
 
