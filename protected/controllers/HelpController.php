@@ -80,6 +80,7 @@ class HelpController extends Controller
 
     public function actionNotify($id)
     {
+
         $this->fb_user = Fbuser::model()->findByPk($id);
         $fbuser = $this->fb_user;
         if (!$fbuser) {
