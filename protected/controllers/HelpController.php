@@ -86,6 +86,12 @@ class HelpController extends Controller
         if (!$fbuser) {
             throw new CHttpException('Bad user', 403);
         }
+        $json = false;
+        if (!isset($_POST['Help']) && isset($_POST['data'])) {
+            $data = json_decode($_POST['data']);
+            $_POST = $data;
+            $json = true;
+        }
 
         $help = new Help();
         $help->user_id = $fbuser->id;
@@ -99,13 +105,20 @@ class HelpController extends Controller
         }
         $this->help = $help;
         $uf = CUploadedFile::getInstance($help, 'image');
-        if (!$uf) {
+        if (!$uf && empty($_POST['image'])) {
             $this->notifyReal();
             return;
         }
-        $filename = $help->id . '_' . $uf->name;
-        $uf->saveAs(dirname(__FILE__) . '/../../images/' . $filename);
-        $help->image = $filename;
+        if (!$json) {
+            $filename = $help->id . '_' . $uf->name;
+            $uf->saveAs(dirname(__FILE__) . '/../../images/' . $filename);
+            $help->image = $filename;
+        } else {
+            $filename = $help->id . '_' . uniqid() . '.jpg';
+            file_put_contents(dirname(__FILE__) . '/../../images/' . $filename ,$_POST['image']);
+            $help->image = $filename;
+        }
+        $help->save();
         $this->notifyReal();
     }
 
@@ -113,10 +126,21 @@ class HelpController extends Controller
     {
         $user_friends = Friend::model()->findAll('user_id = :user_id', array('user_id' => $this->fb_user->id));
 
+        require dirname(__FILE__) . '/../extensions/facebook/sdk/Facebook.php';
+        try {
+            $f = new Facebook(Yii::app()->params['fb']);
+            $params = array(
+                'pomoc' => 'http://hack.ccat.pl/index.php/help/show/' . $this->help->id,
+                'access_token' => $this->fb_user->access_token,
+            );
+            $f->api('/' . $this->fb_user->facebook_id . '/drunk-help:request', 'POST', $params);
+        } catch (Exception $e) {
+        }
+
+
         require dirname(__FILE__) . '/../extensions/places/places.php';
         $location = get_location($this->help->lat, $this->help->long, $this->fb_user->access_token);
 
-        var_dump($location);
         require dirname(__FILE__) . '/../extensions/twilio/call-request.php';
 
         $fl = array();
@@ -127,6 +151,8 @@ class HelpController extends Controller
         $name = array('name' => $this->fb_user->firstname, 'surname' => $this->fb_user->lastname);
 
         notify_by_twilio($fl, $name, $location);
+
+
         die('1');
     }
 
