@@ -9,9 +9,11 @@
  * @property double $long
  * @property string $place
  * @property string $image
+ * @property int $user_id
  */
 class Help extends CActiveRecord
 {
+    public $image;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -33,18 +35,20 @@ class Help extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('lat, long', 'numerical'),
-			array('place, image', 'length', 'max'=>256),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, lat, long, place, image', 'safe', 'on'=>'search'),
-		);
-	}
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('lat, long', 'numerical'),
+            array('place', 'length', 'max'=>256),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, lat, long, place, image', 'safe', 'on'=>'search'),
+            array('image', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' => true),
+
+        );
+    }
 
 	/**
 	 * @return array relational rules.

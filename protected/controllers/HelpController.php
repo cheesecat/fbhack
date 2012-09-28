@@ -2,7 +2,12 @@
 
 class HelpController extends Controller
 {
-	/**
+
+    /**
+     * @var Fbuser
+     */
+    protected $fb_user;
+    /**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
@@ -19,6 +24,11 @@ class HelpController extends Controller
 		);
 	}
 
+
+    /**
+     * @var Help
+     */
+    protected $help = null;
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -28,7 +38,7 @@ class HelpController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'show'),
+				'actions'=>array('index','view', 'show', 'notify'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -68,7 +78,58 @@ class HelpController extends Controller
         ));
     }
 
-	/**
+    public function actionNotify($id)
+    {
+        $this->fb_user = Fbuser::model()->findByPk($id);
+        $fbuser = $this->fb_user;
+        if (!$fbuser) {
+            throw new CHttpException('Bad user', 403);
+        }
+
+        $help = new Help();
+        $help->user_id = $fbuser->id;
+        $help->lat = trim(@$_POST['Help']['lat']);
+        $help->long = trim(@$_POST['Help']['long']);
+
+
+        if (! $help->save() ) {
+            var_dump($help->errors);
+            throw new CHttpException('Bad data');
+        }
+        $this->help = $help;
+        $uf = CUploadedFile::getInstance($help, 'image');
+        if (!$uf) {
+            $this->notifyReal();
+            return;
+        }
+        $filename = $help->id . '_' . $uf->name;
+        $uf->saveAs(dirname(__FILE__) . '/../../images/' . $filename);
+        $help->image = $filename;
+        $this->notifyReal();
+    }
+
+    protected function notifyReal()
+    {
+        $user_friends = Friend::model()->findAll('user_id = :user_id', array('user_id' => $this->fb_user->id));
+
+        require dirname(__FILE__) . '/../extensions/places/places.php';
+        $location = get_location($this->help->lat, $this->help->long, $this->fb_user->access_token);
+
+        var_dump($location);
+        require dirname(__FILE__) . '/../extensions/twilio/call-request.php';
+
+        $fl = array();
+        foreach($user_friends as $friend) {
+            /** @var $friend Friend */
+            $fl[] = $friend->phone;
+        }
+        $name = array('name' => $this->fb_user->firstname, 'surname' => $this->fb_user->lastname);
+
+        notify_by_twilio($fl, $name, $location);
+        die('1');
+    }
+
+    /**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */

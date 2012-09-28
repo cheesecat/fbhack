@@ -18,14 +18,20 @@
 	$lon = '21.025815';
 	$token = 'AAAAAAITEghMBALZA7rzKtrYKAJMJpSVMEn6s616Q653kFaTNTKxZBFLWsqfmbgaHHggmnZCvnYaIsktG7zeFzbrgDStKLtidS969eAuV2Niz4cAXjJU';
 
-        $base = 'https://graph.facebook.com';
-	$uri = '/search?type=place&center='.$lat.','.$lon.'&distance=100&access_token='.$token;
+function get_location($lat, $lon, $token)
+{
+    $base = 'https://graph.facebook.com';
+    $uri = '/search?type=place&center=' . $lat . ',' . $lon . '&distance=100&access_token=' . $token;
 
-	$output = get($base.$uri);
-	$loc = array();
-	$loc['name'] = $output->data[0]->name;
-	$loc['street'] = str_replace("ul. ","",$output->data[0]->location->street);
-	$loc['city'] = $output->data[0]->location->city;
+    $output = get($base . $uri);
+    $loc = array();
+    $loc['name'] = $output->data[0]->name;
+    $loc['street'] = str_replace("ul. ", "", $output->data[0]->location->street);
+    $loc['city'] = $output->data[0]->location->city;
+    return $loc;
+}
+
+//$loc = get_location($lat, $lon, $token);
 	
-	print_r($loc);
+//	print_r($loc);
 ?>	
