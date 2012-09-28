@@ -50,7 +50,7 @@ return array(
 		// uncomment the following to use a MySQL database
 
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=fbhack;port=4555',
+			'connectionString' => 'mysql:host=localhost;dbname=fbhack',
 			'emulatePrepare' => true,
 			'username' => 'fbhack',
 			'password' => 'fbhack',
