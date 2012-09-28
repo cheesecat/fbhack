@@ -14,7 +14,7 @@
                         'secret' => Yii::app()->params['fb']['secret'],
                  ));
 
-        $output = $fb->api($uri);
+        $output = json_decode($fb->api($uri));
         $loc = array();
         $loc['street'] = '';
         $i = 0;
