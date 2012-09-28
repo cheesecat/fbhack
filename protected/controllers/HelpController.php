@@ -86,10 +86,11 @@ class HelpController extends Controller
         if (!$fbuser) {
             throw new CHttpException('Bad user', 403);
         }
+
         $json = false;
         if (!isset($_POST['Help']) && isset($_POST['data'])) {
             $data = json_decode($_POST['data']);
-            $_POST = $data;
+            $_POST['Help'] = $data;
             $json = true;
         }
 
@@ -105,7 +106,7 @@ class HelpController extends Controller
         }
         $this->help = $help;
         $uf = CUploadedFile::getInstance($help, 'image');
-        if (!$uf && empty($_POST['image'])) {
+        if (!$uf && empty($_POST['Help']['image'])) {
             $this->notifyReal();
             return;
         }
