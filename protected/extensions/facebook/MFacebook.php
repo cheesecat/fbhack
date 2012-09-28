@@ -23,7 +23,7 @@ class MFacebook extends CApplicationComponent {
         }
         // load facebook php sdk
         Yii::import('ext.facebook.sdk.*');
-        require_once 'facebook.php';
+        require_once 'Facebook.php';
         
         // configure curl
         $cPath = realpath(Yii::getPathOfAlias('ext') . '/facebook/fb_ca_chain_bundle.crt');

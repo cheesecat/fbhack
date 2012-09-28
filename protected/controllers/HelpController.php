@@ -80,8 +80,8 @@ class HelpController extends Controller
 
     public function actionNotify($id)
     {
-
         $this->fb_user = Fbuser::model()->findByPk($id);
+        /** @var $fbuser Fbuser */
         $fbuser = $this->fb_user;
         if (!$fbuser) {
             throw new CHttpException('Bad user', 403);
