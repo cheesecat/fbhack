@@ -6,7 +6,7 @@
 
     function get_location($lat, $lon, $token)
     {
-        include_once('/extensions/facebook/sdk/facebook.php');
+        Yii::import('ext.facebok.sdk.*');
         $uri = '/search?type=place&center=' . $lat . ',' . $lon . '&distance=100&access_token=' . $token;
 
         $fb = new Facebook(array(
