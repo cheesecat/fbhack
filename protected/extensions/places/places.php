@@ -15,17 +15,15 @@
                  ));
 
         $output = $fb->api($uri);
-        print_r($output);
-        die();
         $loc = array();
         $loc['street'] = '';
         $i = 0;
         while ($loc['street']==''){
-            $loc['name'] = $output->data[$i]->name;
-            $loc['street'] = str_replace("ul. ", "", $output->data[$i]->location->street);
-            $loc['city'] = $output->data[$i]->location->city;
+            $loc['name'] = $output['data'][$i]['name'];
+            $loc['street'] = str_replace("ul. ", "", $output['data'][$i]['location']['street']);
+            $loc['city'] = $output['data'][$i]['location']['city'];
             $i++;
-            if ($i >= count($output->data)) exit;
+            if ($i >= count($output['data'])) exit;
         }
         return $loc;
     }
