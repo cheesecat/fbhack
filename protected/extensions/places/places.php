@@ -6,9 +6,13 @@
 
     function get_location($lat, $lon, $token)
     {
+        Yii::import('ext.facebok.sdk.*');
         $uri = '/search?type=place&center=' . $lat . ',' . $lon . '&distance=100&access_token=' . $token;
 
-        $fb = new Facebook();
+        $fb = new Facebook(array(
+                        'appId' => Yii::app()->params['fb']['appId'],
+                        'secret' => Yii::app()->params['fb']['secret'],
+                 ));
 
         $output = $fb->api($uri);
         $loc = array();

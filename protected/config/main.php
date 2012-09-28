@@ -75,17 +75,7 @@ return array(
 				),
 				*/
 			),
-		),
-                'fb' => array(
-                        'class' => 'ext.facebook.MFacebook',
-                        'appId' => '436827363018914',
-                        'secret' => 'b3fe8d6c8855cd295cd7891e4d51a56e',
-                        'scope' => 'user, publish_stream',
-                        'ns' => 'drunk-help',
-                        'redirectUrl' => 'http://www.facebook.com/pages/Galeroo/198540066903802?sk=app_436827363018914',
-                        'cookie' => true,
-                        'autoGrow' => true
-                ),            
+		),          
 	),
 
 	// application-level parameters that can be accessed
@@ -93,5 +83,12 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+                'fb' => array(
+                        'appId' => '436827363018914',
+                        'secret' => 'b3fe8d6c8855cd295cd7891e4d51a56e',
+                        'scope' => 'user, publish_stream',
+                        'ns' => 'drunk-help',
+                        'cookie' => true,
+                ),  
 	),
 );
