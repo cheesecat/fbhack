@@ -9,7 +9,7 @@ function Services_Twilio_autoload($className) {
     return include dirname(__FILE__) . "/$file.php";
 }
 
-spl_autoload_register('Services_Twilio_autoload');
+spl_autoload_register('Services_Twilio_autoload',false, true);
 
 /**
  * Twilio API client interface.

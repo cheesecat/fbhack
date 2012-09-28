@@ -46,4 +46,4 @@ function notify_by_twilio($friendlist, $name, $location)
     }
 }
 
-notify_by_twilio($friendlist, $client, $phonenumber, $name, $location);
+//notify_by_twilio($friendlist, $client, $phonenumber, $name, $location);
