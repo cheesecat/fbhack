@@ -32,6 +32,7 @@ function get_location($lat, $lon, $token)
         $loc['street'] = str_replace("ul. ", "", $output->data[$i]->location->street);
         $loc['city'] = $output->data[$i]->location->city;
         $i++;
+        if ($i >= count($output->data)) exit;
     }
     return $loc;
 }
