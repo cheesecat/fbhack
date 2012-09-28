@@ -81,7 +81,7 @@ return array(
                         'appId' => '436827363018914',
                         'secret' => 'b3fe8d6c8855cd295cd7891e4d51a56e',
                         'scope' => 'user, publish_stream',
-                        'ns' => 'hellmans-fani',
+                        'ns' => 'drunk-help',
                         'redirectUrl' => 'http://www.facebook.com/pages/Galeroo/198540066903802?sk=app_436827363018914',
                         'cookie' => true,
                         'autoGrow' => true
