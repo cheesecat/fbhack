@@ -1,0 +1,38 @@
+2012/09/28 15:25:30 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\Users\Qyon\Projekty\YII\web\auth\CAccessControlFilter.php:170
+Stack trace:
+#0 C:\Users\Qyon\Projekty\YII\web\auth\CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\Users\Qyon\Projekty\YII\web\filters\CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\Users\Qyon\Projekty\YII\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 C:\Users\Qyon\Projekty\YII\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\Users\Qyon\Projekty\YII\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\Users\Qyon\Projekty\YII\web\CController.php(292): CFilterChain->run()
+#6 C:\Users\Qyon\Projekty\YII\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\Users\Qyon\Projekty\YII\web\CWebApplication.php(283): CController->run('show')
+#8 C:\Users\Qyon\Projekty\YII\web\CWebApplication.php(142): CWebApplication->runController('help/show')
+#9 C:\Users\Qyon\Projekty\YII\base\CApplication.php(162): CWebApplication->processRequest()
+#10 C:\Users\Qyon\Projekty\fbhack\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php/help/show/1
+---
+2012/09/28 15:25:55 [error] [exception.CException] exception 'CException' with message 'HelpController cannot find the requested view "show".' in C:\Users\Qyon\Projekty\YII\web\CController.php:879
+Stack trace:
+#0 C:\Users\Qyon\Projekty\YII\web\CController.php(783): CController->renderPartial('show', Array, true)
+#1 C:\Users\Qyon\Projekty\fbhack\protected\controllers\HelpController.php(68): CController->render('show', Array)
+#2 [internal function]: HelpController->actionShow('1')
+#3 C:\Users\Qyon\Projekty\YII\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(HelpController), Array)
+#4 C:\Users\Qyon\Projekty\YII\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(HelpController), Object(ReflectionMethod), Array)
+#5 C:\Users\Qyon\Projekty\YII\web\CController.php(309): CInlineAction->runWithParams(Array)
+#6 C:\Users\Qyon\Projekty\YII\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 C:\Users\Qyon\Projekty\YII\web\filters\CFilter.php(41): CFilterChain->run()
+#8 C:\Users\Qyon\Projekty\YII\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 C:\Users\Qyon\Projekty\YII\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 C:\Users\Qyon\Projekty\YII\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 C:\Users\Qyon\Projekty\YII\web\CController.php(292): CFilterChain->run()
+#12 C:\Users\Qyon\Projekty\YII\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\Users\Qyon\Projekty\YII\web\CWebApplication.php(283): CController->run('show')
+#14 C:\Users\Qyon\Projekty\YII\web\CWebApplication.php(142): CWebApplication->runController('help/show')
+#15 C:\Users\Qyon\Projekty\YII\base\CApplication.php(162): CWebApplication->processRequest()
+#16 C:\Users\Qyon\Projekty\fbhack\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php/help/show/1
+---
