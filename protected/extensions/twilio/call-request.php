@@ -39,7 +39,7 @@ function notify_by_twilio($friendlist, $name, $location)
                 $friend, // The number of the phone receiving call
                 'http://vilq.net/twilio/message.php?name=' . urlencode(implode(" ", $name)) . '&location=' . urlencode(implode(" ", $location)) // The URL Twilio will request when the call is answered
             );
-            echo 'Started call: ' . $call->sid . "<br/>";
+            //echo 'Started call: ' . $call->sid . "<br/>";
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
